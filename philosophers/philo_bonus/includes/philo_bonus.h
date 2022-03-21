@@ -6,7 +6,11 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 20:07:27 by seungsle          #+#    #+#             */
-/*   Updated: 2022/03/21 20:07:27 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/03/21 20:18:25 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
+
+#endif
