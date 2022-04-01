@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 20:49:58 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/01 20:38:28 by seungsle         ###   ########.fr       */
+/*   Created: 2021/05/13 12:21:03 by seungsle          #+#    #+#             */
+/*   Updated: 2021/05/17 16:10:56 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "libft.h"
 
 int	ft_atoi(const char *str)
 {
@@ -35,10 +35,4 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return ((int)ret);
-}
-
-void	parsing(int argc, char **argv)
-{
-	if (argc == 5)
-		
 }
