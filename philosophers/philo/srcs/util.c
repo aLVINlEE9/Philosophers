@@ -6,13 +6,13 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 10:39:03 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/05 10:51:02 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/05 20:00:45 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	ft_atoi(const char *str)
+long long	ft_atol(const char *str)
 {
 	long long	ret;
 	long long	p;
@@ -34,5 +34,5 @@ int	ft_atoi(const char *str)
 		ret += (p * (*str - '0'));
 		str++;
 	}
-	return ((int)ret);
+	return ((long long)ret);
 }
