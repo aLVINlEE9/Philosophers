@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 20:07:19 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/01 20:48:56 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/05 10:06:32 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ size_t	ft_strlen(const char *s);
 int		exception_print(char *str);
 
 int		ft_atoi(const char *str);
-void	parsing(int argc, char **argv);
+int		valid_check(char *str);
+void	init_info(int argc, char **argv, t_info *info);
+void	parsing(int argc, char **argv, t_info *info);
 
 #endif
