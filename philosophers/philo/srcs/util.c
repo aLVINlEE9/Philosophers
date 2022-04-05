@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exception.c                                        :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/01 20:01:44 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/05 10:38:46 by seungsle         ###   ########.fr       */
+/*   Created: 2022/04/05 10:39:03 by seungsle          #+#    #+#             */
+/*   Updated: 2022/04/05 10:51:02 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_atoi(const char *str)
 {
-	size_t	i;
+	long long	ret;
+	long long	p;
 
-	i = 0;
-	while (*s++)
-		i++;
-	return (i);
-}
-
-int	exception_print(char *str)
-{
-	write(1, "[Exception Occurred : ", 22);
-	write(1, str, (int)ft_strlen(str));
-	write(1, "]", 1);
-	return (1);
+	ret = 0;
+	p = 1;
+	while (*str == '\f' || *str == '\n' || *str == '\r'
+		|| *str == '\t' || *str == '\v' || *str == ' ')
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			p *= -1;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		ret *= 10;
+		ret += (p * (*str - '0'));
+		str++;
+	}
+	return ((int)ret);
 }
