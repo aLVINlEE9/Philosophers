@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 20:49:58 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/05 20:32:51 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/05 20:36:17 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	valid_arg_check(int argc, char **argv)
 		j = -1;
 		while (argv[i][j])
 			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (exception_print("invalid parameter(not a number)"));
+				return (exception_print("bad arguments(not a number)"));
 	}
 	return (0);
 }
@@ -31,15 +31,15 @@ int	valid_arg_check(int argc, char **argv)
 int	valid_num_check(int argc, t_info *info)
 {
 	if (info->number_of_philosophers < 2)
-		return (exception_print("invalid parameter(number_of_philosophers)"));
+		return (exception_print("bad arguments(number_of_philosophers)"));
 	if (info->time_to_die < 0)
-		return (exception_print("invalid parameter(time_to_die)"));
+		return (exception_print("bad arguments(time_to_die)"));
 	if (info->time_to_eat < 0)
-		return (exception_print("invalid parameter(time_to_eat)"));
+		return (exception_print("bad arguments(time_to_eat)"));
 	if (info->time_to_sleep < 0)
-		return (exception_print("invalid parameter(time_to_sleep)"));
+		return (exception_print("bad arguments(time_to_sleep)"));
 	if (argc == 6 && info->number_of_times_each_philosopher_must_eat < 1)
-		return (exception_print("invalid parameter\
+		return (exception_print("bad arguments\
 (number_of_times_each_philosopher_must_eat)"));
 	return (0);
 }
