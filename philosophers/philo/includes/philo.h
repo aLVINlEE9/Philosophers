@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 20:07:19 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/05 21:16:30 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:59:08 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,27 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+typedef enum e_status{
+	EAT = 1,
+	SLEEP,
+	THINKING
+}	t_status;
+
 typedef struct s_info{
-	long long	number_of_philosophers;
-	long long	time_to_die;
-	long long	time_to_eat;
-	long long	time_to_sleep;
-	long long	number_of_times_each_philosopher_must_eat;
+	int			num_of_philo;
+	uint64_t	time_to_die;
+	uint64_t	time_to_eat;
+	uint64_t	time_to_sleep;
+	int			num_of_must_eat;
 }	t_info;
+
+typedef struct	s_philo{
+	t_info			info;
+	t_status		status;
+	int				r_times;
+	uint64_t		last_eat;
+	pthread_mutex_t	mutex;
+}	t_philo;
 
 size_t		ft_strlen(const char *s);
 int			exception_print(char *str);

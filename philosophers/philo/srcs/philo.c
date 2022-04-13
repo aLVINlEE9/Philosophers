@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 20:07:23 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/05 20:35:54 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:42:52 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,4 @@ int	main(int argc, char **argv)
 		return (exception_print("bad arguments"));
 	if (init_info(argc, argv, &info))
 		return (1);
-	run_philo(&info);
 }
