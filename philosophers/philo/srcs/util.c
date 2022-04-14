@@ -6,16 +6,16 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 10:39:03 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/05 20:00:45 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:32:50 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-long long	ft_atol(const char *str)
+uint64_t	ft_atou64(const char *str)
 {
-	long long	ret;
-	long long	p;
+	uint64_t	ret;
+	uint64_t	p;
 
 	ret = 0;
 	p = 1;
@@ -34,5 +34,5 @@ long long	ft_atol(const char *str)
 		ret += (p * (*str - '0'));
 		str++;
 	}
-	return ((long long)ret);
+	return ((uint64_t)ret);
 }
