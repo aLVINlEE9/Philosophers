@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 20:07:23 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/18 01:23:51 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/18 02:23:24 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ void	*routine(void *philo_t)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_t;
-	if (pthread_create(&philo->moniter, NULL, moniter, (void *)(philo)))
-		return (exception_print("thread error(failed to create thread"));
-	pthread_detach(&philo->moniter);
+	if (pthread_create(&philo->moniter_tid, NULL, moniter, (void *)(philo)))
+		return ((void *)exception_print("thread error\
+				(failed to create thread"));
+	pthread_detach(&philo->moniter_tid);
 	while (philo->info->done_philo < philo->info->num_of_philo)
 	{
 		philo_fork(philo);
