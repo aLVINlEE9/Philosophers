@@ -5,7 +5,8 @@
 #include <sys/time.h>
 
 int mails = 0;
-pthread_mutex_t mutex;
+int nmails = 0;
+pthread_mutex_t mutex_1, mutex_2;
 
 void	*routine(void *data)
 {
@@ -13,9 +14,13 @@ void	*routine(void *data)
 
 	while (++i < 1000000)
 	{
-		pthread_mutex_lock(&mutex);
+		pthread_mutex_lock(&mutex_1);
+		usleep(1);
+		pthread_mutex_lock(&mutex_2);
 		mails++;
-		pthread_mutex_unlock(&mutex);
+		nmails++;
+		pthread_mutex_unlock(&mutex_1);
+		pthread_mutex_unlock(&mutex_2);
 	}
 }
 
@@ -23,7 +28,8 @@ int main()
 {
 	pthread_t	th1, th2;
 
-	pthread_mutex_init(&mutex, NULL);
+	pthread_mutex_init(&mutex_1, NULL);
+	pthread_mutex_init(&mutex_2, NULL);
 	if (pthread_create(&th1, NULL, routine, NULL))
 		perror("Failed to create thread ");
 	if (pthread_create(&th2, NULL, routine, NULL))
@@ -32,6 +38,7 @@ int main()
 		perror("Failed to join thread ");
 	if (pthread_join(th2, NULL))
 		perror("Failed to join thread ");
-	pthread_mutex_destroy(&mutex);
-	printf("%d\n", mails);
+	pthread_mutex_destroy(&mutex_1);
+	pthread_mutex_destroy(&mutex_2);
+	printf("%d %d\n", mails, nmails);
 }

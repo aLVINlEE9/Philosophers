@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 20:07:19 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/14 17:01:20 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/17 16:18:53 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef enum e_status{
-	EAT = 1,
-	SLEEP,
-	THINKING
-}	t_status;
+# define FORK " has taken a fork"
+# define EAT " is eating"
+# define SLEEP " is sleeping"
+# define THINKING " is thinking"
+# define DIED " died"
 
 typedef struct s_info{
 	int				num_of_philo;
@@ -32,24 +32,30 @@ typedef struct s_info{
 	uint64_t		time_to_eat;
 	uint64_t		time_to_sleep;
 	int				num_of_must_eat;
-	uint64_t		time_now;
 	struct s_philo	*philos;
+	pthread_mutex_t	*fork_m;
+	pthread_mutex_t	print;
 }	t_info;
 
 typedef struct s_philo{
 	t_info			*info;
-	t_status		status;
+	int				position;
+	int				l_fork;
+	int				r_fork;
 	int				routine_times;
 	uint64_t		last_eat;
-	pthread_mutex_t	mutex;
 }	t_philo;
 
 size_t		ft_strlen(const char *s);
+void		message_print(t_philo *philo, char *type);
 int			exception_print(char *str);
 
-uint64_t	ft_atou64(const char *str);
 int			valid_arg_check(int argc, char **argv);
+void		init_philos(t_info *info);
 int			init_info(int argc, char **argv, t_info *info);
-void		parsing(int argc, char **argv, t_info *info);
+
+void		timer(uint64_t time);
+uint64_t	get_time(void);
+uint64_t	ft_atou64(const char *str);
 
 #endif
