@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 20:49:58 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/17 16:22:22 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/18 01:23:23 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	init_philos(t_info *info)
 		info->philos[i].r_fork = i + 1;
 		info->philos[i].l_fork = (i + 2) % info->num_of_philo;
 		info->philos[i].routine_times = 0;
-		info->philos[i].last_eat = 0;
+		info->philos[i].limit = 0;
+		pthread_mutex_init(&info->philos[i].moniter, NULL);
 	}
 }
 
@@ -64,6 +65,7 @@ int	init_info_sub(t_info *info)
 	info->fork_m = fork_m;
 	while (++i < info->num_of_philo)
 		pthread_mutex_init(&info->fork_m[i], NULL);
+	pthread_mutex_init(&info->print, NULL);
 	return (0);
 }
 
@@ -81,6 +83,7 @@ int	init_info(int argc, char **argv, t_info *info)
 		info->num_of_must_eat = ft_atou64(argv[5]);
 	else
 		info->num_of_must_eat = -1;
+	info->done_philo = 0;
 	if (init_info_sub(info))
 		return (1);
 	init_philos(info);
