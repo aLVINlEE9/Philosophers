@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 20:01:44 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/17 15:22:45 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/18 10:57:29 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ size_t	ft_strlen(const char *s)
 void	message_print(t_philo *philo, char *type)
 {
 	pthread_mutex_lock(&philo->info->print);
-	printf("%lldms\t%d\t%s\n", get_time(), philo->position, type);
+	printf("%lldms\t%d\t%s\n", get_time() - philo->info->start_time, \
+			philo->position, type);
 	pthread_mutex_unlock(&philo->info->print);
 }
 

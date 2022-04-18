@@ -6,15 +6,14 @@
 #    By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/21 20:00:26 by seungsle          #+#    #+#              #
-#    Updated: 2022/04/18 02:08:46 by seungsle         ###   ########.fr        #
+#    Updated: 2022/04/18 14:01:36 by seungsle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo
-CC		= gcc
+CC		= gcc -g
 CFLAG	= -Werror -Wall -Wextra
 SRCS 	=	srcs/main.c				\
-			srcs/moniter.c			\
 			srcs/philo.c			\
 			srcs/philo_actions.c 	\
 			srcs/print.c 			\

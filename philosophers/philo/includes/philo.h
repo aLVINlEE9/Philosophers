@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 20:07:19 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/18 02:21:12 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/18 13:33:32 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_info{
 	uint64_t		time_to_sleep;
 	int				num_of_must_eat;
 	int				done_philo;
+	uint64_t		start_time;
 	struct s_philo	*philos;
 	pthread_mutex_t	*fork_m;
 	pthread_mutex_t	moniter;
@@ -50,7 +51,7 @@ typedef struct s_philo{
 	pthread_t		tid;
 }	t_philo;
 
-int			valid_arg_check(int argc, char **argv);
+int			valid_arg_check(char **argv);
 void		init_philos(t_info *info);
 int			init_info_sub(t_info *info);
 int			init_info(int argc, char **argv, t_info *info);
