@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:03:06 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/21 17:21:10 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/21 20:45:12 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,22 @@ int	print_error(int err_type)
 	else if (err_type == ERR_THREAD)
 		printf("%s\n", "thread error(failed to create thread");
 	return (1);
+}
+
+int	print_message(t_philo *philo, int msg_type)
+{
+	pthread_mutex_lock(&philo->print_mutex);
+	printf("%lldms\t%d\t", get_time() - philo->data->start_time, philo->id);
+	if (msg_type == FORK)
+		printf("%s\n", "has taken a fork");
+	else if (msg_type == EAT)
+		printf("%s\n", "is eating");
+	else if (msg_type == SLEEP)
+		printf("%s\n", "is sleeping");
+	else if (msg_type == THINK)
+		printf("%s\n", "is thinking");
+	else if (msg_type == DIE)
+		printf("%s\n", "died");
+	pthread_mutex_unlock(&philo->print_mutex);
+	return (0);
 }

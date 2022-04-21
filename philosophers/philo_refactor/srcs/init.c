@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:49:35 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/21 17:54:11 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/21 21:08:13 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	mutex_init(t_data *data)
 
 	i = -1;
 	while (++i < data->philo_num)
-		pthread_mutex_init(&data->fork[i], NULL);
+	{
+		pthread_mutex_init(&data->fork_mutex[i], NULL);
+		pthread_mutex_init(&data->philo[i].print_mutex, NULL);
+	}
 }
 
 int	init_philo(t_data *data)
@@ -49,6 +52,8 @@ int	init_philo(t_data *data)
 		data->philo[i].id = i + 1;
 		data->philo[i].l_fork = i;
 		data->philo[i].r_fork = (i + 1) % data->philo_num;
+		data->philo[i].is_eating = FALSE;
+		data->philo[i].limit_time = 0;
 		data->philo[i].data = data;
 	}
 }
@@ -70,9 +75,11 @@ int	init_data(int argc, char **argv, t_data *data)
 	}
 	else
 		return (print_error(ERR_PARSING));
-	data->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
+	data->start_time = 0;
+	data->now_time = 0;
+	data->fork_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
 					* data->philo_num);
-	if (data->fork == NULL)
+	if (data->fork_mutex == NULL)
 		return (print_error(ERR_MALLOC));
 	data->philo = NULL;
 	return (0);

@@ -6,11 +6,28 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:49:14 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/21 16:49:25 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/21 21:02:18 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+void	delay_time(uint64_t time)
+{
+	uint64_t	limit;
+
+	limit = get_time() + time;
+	while (get_time() < limit)
+		usleep(10);
+}
+
+uint64_t	get_time(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / (uint64_t)1000));
+}
 
 uint64_t	ft_atou64(const char *str)
 {
