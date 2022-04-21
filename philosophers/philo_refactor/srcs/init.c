@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:49:35 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/21 21:08:13 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/22 01:26:25 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ int	check_num(int argc, char **argv)
 		j = -1;
 		while (argv[i][++j])
 			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (1);
+				return (0);
 	}
+	return (1);
 }
 
 void	mutex_init(t_data *data)
@@ -35,8 +36,12 @@ void	mutex_init(t_data *data)
 	while (++i < data->philo_num)
 	{
 		pthread_mutex_init(&data->fork_mutex[i], NULL);
+		pthread_mutex_init(&data->philo[i].moniter_mutex, NULL);
 		pthread_mutex_init(&data->philo[i].print_mutex, NULL);
+		pthread_mutex_init(&data->philo[i].eat_mutex, NULL);
+		pthread_mutex_init(&data->philo[i].time_mutex, NULL);
 	}
+	pthread_mutex_init(&data->stop_mutex, NULL);
 }
 
 int	init_philo(t_data *data)
@@ -53,9 +58,12 @@ int	init_philo(t_data *data)
 		data->philo[i].l_fork = i;
 		data->philo[i].r_fork = (i + 1) % data->philo_num;
 		data->philo[i].is_eating = FALSE;
+		data->philo[i].is_dead = FALSE;
+		data->philo[i].routine_times = 0;
 		data->philo[i].limit_time = 0;
 		data->philo[i].data = data;
 	}
+	return (0);
 }
 
 int	init_data(int argc, char **argv, t_data *data)
@@ -76,7 +84,7 @@ int	init_data(int argc, char **argv, t_data *data)
 	else
 		return (print_error(ERR_PARSING));
 	data->start_time = 0;
-	data->now_time = 0;
+	data->main_time = 0;
 	data->fork_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
 					* data->philo_num);
 	if (data->fork_mutex == NULL)

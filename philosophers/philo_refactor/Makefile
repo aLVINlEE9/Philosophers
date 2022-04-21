@@ -6,19 +6,19 @@
 #    By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/21 20:00:26 by seungsle          #+#    #+#              #
-#    Updated: 2022/04/18 14:01:36 by seungsle         ###   ########.fr        #
+#    Updated: 2022/04/22 01:22:13 by seungsle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo
 CC		= gcc -g
 CFLAG	= -Werror -Wall -Wextra
-SRCS 	=	srcs/main.c				\
-			srcs/philo.c			\
-			srcs/philo_actions.c 	\
-			srcs/print.c 			\
-			srcs/util.c 			\
-			srcs/init.c
+SRCS 	=	srcs/init.c		\
+			srcs/main.c		\
+			srcs/philo.c 	\
+			srcs/print.c 	\
+			srcs/thread.c 	\
+			srcs/util.c
 
 OBJS 	= ${SRCS:.c=.o}
 

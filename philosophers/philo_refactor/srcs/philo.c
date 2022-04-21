@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 20:14:49 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/21 21:11:34 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/22 01:23:45 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ void	philo_take_fork(t_philo *philo)
 void	philo_eat(t_philo *philo)
 {
 	print_message(philo, EAT);
-	philo->limit_time = get_time() + philo->data->time_to_die;
+	philo->limit_time = correct_time(philo) + philo->data->time_to_die;
+	delay_time(philo, philo->data->time_to_eat);
 	philo->is_eating = TRUE;
-	delay_time(philo->data->time_to_eat);
+	if (philo->data->num_of_must_eat != -1)
+		philo->routine_times++;
 }
 
 void	philo_clean_fork(t_philo *philo)
@@ -40,13 +42,22 @@ void	philo_clean_fork(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->fork_mutex[philo->r_fork]);
 }
 
-void	philo_sleep(t_philo *philo)
+void	philo_sleep_and_think(t_philo *philo)
 {
 	print_message(philo, SLEEP);
-	delay_time(philo->data->time_to_sleep);
+	delay_time(philo, philo->data->time_to_sleep);
+	print_message(philo, THINK);
 }
 
-void	philo_think(t_philo *philo)
+int	philo_eat_check(t_philo *philo)
 {
-	print_message(philo, THINK);
+	if (philo->data->num_of_must_eat == -1 && \
+		philo->routine_times >= philo->data->num_of_must_eat)
+	{
+		pthread_mutex_lock(&philo->eat_mutex);
+		print_message(philo, DONE);
+		pthread_mutex_unlock(&philo->data->stop_mutex);
+		return (TRUE);
+	}
+	return (FALSE);
 }
