@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:03:06 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/22 00:53:46 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/22 14:29:21 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ int	print_message(t_philo *philo, int msg_type)
 		printf("%lldms\t%d\t%s\n", get_time() - philo->data->start_time, \
 				philo->id, "is thinking");
 	else if (msg_type == DIE)
-		printf("%lldms\t%d\t%s\n", get_time() - philo->data->start_time, \
-				philo->id, "died");
+		printf("%lldms\t%d\t%s\t%lld\n", get_time() - philo->data->start_time, \
+				philo->id, "died", philo->limit_time);
 	else if (msg_type == DONE)
 		printf("%s\n", "done!");
-	pthread_mutex_unlock(&philo->print_mutex);
+	if (philo->is_dead == FALSE && philo->is_done == FALSE)
+		pthread_mutex_unlock(&philo->print_mutex);
 	return (0);
 }

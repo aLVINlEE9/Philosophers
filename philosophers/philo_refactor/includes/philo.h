@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:42:34 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/22 00:50:57 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/22 15:26:45 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ typedef struct s_data{
 	uint64_t		time_to_eat;
 	uint64_t		time_to_sleep;
 	int				num_of_must_eat;
+	int				is_dead;
+	int				is_done;
 	uint64_t		start_time;
-	uint64_t		main_time;
 	pthread_mutex_t	*fork_mutex;
 	pthread_mutex_t	stop_mutex;
 	struct s_philo	*philo;
@@ -53,6 +54,7 @@ typedef struct s_philo{
 	int				r_fork;
 	int				is_eating;
 	int				is_dead;
+	int				is_done;
 	int				routine_times;
 	uint64_t		limit_time;
 	pthread_t		tid;
@@ -79,13 +81,13 @@ int			philo_eat_check(t_philo *philo);
 int			print_error(int err_type);
 int			print_message(t_philo *philo, int msg_type);
 
+void		free_resources(t_data *data);
 void		main_thread_time_updater(t_data *data);
 void		*moniter(void *philo_t);
 void		*routine(void *philo_t);
 int			start_thread(t_data *data);
 
-uint64_t	correct_time(t_philo *philo);
-void		delay_time(t_philo *philo, uint64_t time);
+void		delay_time(uint64_t time);
 uint64_t	get_time(void);
 uint64_t	ft_atou64(const char *str);
 

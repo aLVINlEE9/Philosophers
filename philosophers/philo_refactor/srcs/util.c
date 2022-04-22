@@ -6,32 +6,17 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:49:14 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/21 23:33:08 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/22 15:26:39 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-uint64_t	correct_time(t_philo *philo)
-{
-	uint64_t	main_thread_time;
-	uint64_t	sub_thread_time;
-
-	pthread_mutex_lock(&philo->time_mutex);
-	main_thread_time = philo->data->main_time;
-	sub_thread_time = get_time();
-	if (main_thread_time < sub_thread_time)
-		return (main_thread_time);
-	else
-		return (sub_thread_time);
-	pthread_mutex_unlock(&philo->time_mutex);
-}
-
-void	delay_time(t_philo *philo, uint64_t time)
+void	delay_time(uint64_t time)
 {
 	uint64_t	limit;
 
-	limit = correct_time(philo) + time;
+	limit = get_time() + time;
 	while (get_time() < limit)
 		usleep(10);
 }

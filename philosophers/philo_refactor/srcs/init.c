@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:49:35 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/22 01:26:25 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/22 15:26:09 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	init_philo(t_data *data)
 		data->philo[i].r_fork = (i + 1) % data->philo_num;
 		data->philo[i].is_eating = FALSE;
 		data->philo[i].is_dead = FALSE;
+		data->philo[i].is_done = FALSE;
 		data->philo[i].routine_times = 0;
 		data->philo[i].limit_time = 0;
 		data->philo[i].data = data;
@@ -83,8 +84,9 @@ int	init_data(int argc, char **argv, t_data *data)
 	}
 	else
 		return (print_error(ERR_PARSING));
+	data->is_dead = FALSE;
+	data->is_done = FALSE;
 	data->start_time = 0;
-	data->main_time = 0;
 	data->fork_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
 					* data->philo_num);
 	if (data->fork_mutex == NULL)
