@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 19:23:31 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/23 20:03:05 by seungsle         ###   ########.fr       */
+/*   Created: 2022/04/23 19:41:14 by seungsle          #+#    #+#             */
+/*   Updated: 2022/04/23 19:47:37 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	main(int argc, char **argv)
+int	print_error(int err_type)
 {
-	t_data	*data;
-	t_philo	*philo;
-
-	if (init(argc, argv, data))
-		return (1);
-	if (start_thread(data))
-		return (1);
+	if (err_type == ERR_MALLOC)
+		printf("memory error(failed to malloc)\n");
+	else if (err_type == ERR_CTHREAD)
+		printf("thread error(failed to create thread\n");
+	else if (err_type == ERR_ARGS)
+		printf("bad arguments\n");
+	return (1);
 }
