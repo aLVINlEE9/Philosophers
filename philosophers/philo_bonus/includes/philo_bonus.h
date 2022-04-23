@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 19:23:31 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/24 01:54:07 by seungsle         ###   ########.fr       */
+/*   Created: 2022/04/24 01:52:53 by seungsle          #+#    #+#             */
+/*   Updated: 2022/04/24 01:53:28 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
-int	main(int argc, char **argv)
-{
-	t_data	data;
-
-	if (init(argc, argv, &data))
-		return (1);
-	if (start_thread(&data))
-		return (1);
-	return (0);
-}
+#endif
