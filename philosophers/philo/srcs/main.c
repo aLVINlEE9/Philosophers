@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 00:03:20 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/18 14:01:40 by seungsle         ###   ########.fr       */
+/*   Created: 2022/04/23 19:23:31 by seungsle          #+#    #+#             */
+/*   Updated: 2022/04/23 19:24:34 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,5 @@
 
 int	main(int argc, char **argv)
 {
-	t_info	info;
-
-	if (argc < 5 || argc > 6)
-		return (exception_print("bad arguments"));
-	if (init_info(argc, argv, &info))
-		return (1);
-	if (run_philosopher(&info))
-		return (1);
+	if (init())
 }
