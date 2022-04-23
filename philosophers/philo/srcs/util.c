@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:58:48 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/23 23:43:19 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/24 01:43:52 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	delay_time(uint64_t delay_time)
 	uint64_t	limit_time;
 
 	limit_time = get_time() + delay_time;
-	while (get_time() > limit_time)
+	while (get_time() < limit_time)
 		usleep(10);
 }
 

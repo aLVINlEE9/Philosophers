@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:15:17 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/24 00:58:38 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/24 01:46:44 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	release_resources(t_data *data)
 
 	i = -1;
 	while (++i < data->num_of_philo)
-		pthread_mutex_destroy(data->fork_mutex + i);
+		pthread_mutex_destroy(&data->fork_mutex[i]);
 	pthread_mutex_destroy(data->moniter_mutex);
 	pthread_mutex_destroy(data->print_mutex);
 	pthread_mutex_destroy(data->stop_mutex);
@@ -98,10 +98,11 @@ int	start_thread(t_data *data)
 	pthread_mutex_lock(data->stop_mutex);
 	while (++i < data->num_of_philo)
 	{
-		if (pthread_create(&(data->philo + 1)->tid, NULL, routine, \
+		if (pthread_create(&data->philo[i].tid, NULL, routine, \
 							(void *)&data->philo[i]))
 			return (print_error(ERR_CTHREAD));
-		pthread_detach((data->philo + 1)->tid);
+		pthread_detach(data->philo[i].tid);
+		usleep(100);
 	}
 	pthread_mutex_lock(data->stop_mutex);
 	release_resources(data);

@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:37:08 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/24 00:59:42 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/24 01:26:38 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	init_mutex(t_data *data)
 	if (data->stop_mutex == NULL)
 		return (print_error(ERR_MALLOC));
 	while (++i < data->num_of_philo)
-		pthread_mutex_init(data->fork_mutex + 1, NULL);
+		pthread_mutex_init(&data->fork_mutex[i], NULL);
 	pthread_mutex_init(data->moniter_mutex, NULL);
 	pthread_mutex_init(data->print_mutex, NULL);
 	pthread_mutex_init(data->stop_mutex, NULL);
@@ -60,21 +60,19 @@ int	init_mutex(t_data *data)
 
 int	init_philo(t_data *data)
 {
-	t_philo	*philo;
 	int		i;
 
 	i = -1;
-	philo = (t_philo *)malloc(sizeof(t_philo) * data->num_of_philo);
-	if (philo == NULL)
+	data->philo = (t_philo *)malloc(sizeof(t_philo) * data->num_of_philo);
+	if (data->philo == NULL)
 		return (print_error(ERR_MALLOC));
-	data->philo = philo;
 	while (++i < data->num_of_philo)
 	{
-		philo->data = data;
-		philo->id = i + 1;
-		philo->l_fork = i;
-		philo->r_fork = (i + 1) % data->num_of_philo;
-		philo->is_done = FALSE;
+		data->philo[i].data = data;
+		data->philo[i].id = i + 1;
+		data->philo[i].l_fork = i;
+		data->philo[i].r_fork = (i + 1) % data->num_of_philo;
+		data->philo[i].is_done = FALSE;
 	}
 	return (0);
 }
@@ -107,9 +105,6 @@ int	init(int argc, char **argv, t_data *data)
 {
 	if (argc == 5 || argc == 6)
 	{
-		data = (t_data *)malloc(sizeof(t_data));
-		if (data == NULL)
-			return (print_error(ERR_MALLOC));
 		if (init_data(argc, argv, data))
 			return (1);
 		if (init_philo(data))

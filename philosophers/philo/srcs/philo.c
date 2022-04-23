@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:33:47 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/24 00:38:59 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/24 01:34:10 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	philo_take_fork(t_philo *philo)
 {
-	if (philo->id)
+	if (philo->id % 2)
 		pthread_mutex_lock(philo->data->fork_mutex + philo->r_fork);
 	else
 		pthread_mutex_lock(philo->data->fork_mutex + philo->l_fork);
 	print_message(philo, FORK);
-	if (philo->id)
+	if (philo->id % 2)
 		pthread_mutex_lock(philo->data->fork_mutex + philo->l_fork);
 	else
 		pthread_mutex_lock(philo->data->fork_mutex + philo->r_fork);
