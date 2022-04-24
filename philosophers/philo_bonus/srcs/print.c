@@ -1,0 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/23 19:41:14 by seungsle          #+#    #+#             */
+/*   Updated: 2022/04/24 23:23:19 by seungsle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/philo_bonus.h"
+
+int	print_error(int err_type)
+{
+	if (err_type == ERR_MALLOC)
+		printf("memory error(failed to malloc)\n");
+	else if (err_type == ERR_CTHREAD)
+		printf("thread error(failed to create thread\n");
+	else if (err_type == ERR_ARGS)
+		printf("bad arguments\n");
+	return (1);
+}
+
+void	print_message(t_philo *philo, int msg_type)
+{
+	uint64_t	time;
+
+	time = get_time() - philo->data->start_time;
+	sem_wait(philo->data->print_sem);
+	if (msg_type == FORK)
+		printf("%lldms\t%d\t%s\n", time, philo->id, "has taken a fork");
+	if (msg_type == EAT)
+		printf("%lldms\t%d\t%s\n", time, philo->id, "is eating");
+	if (msg_type == SLEEP)
+		printf("%lldms\t%d\t%s\n", time, philo->id, "is sleeping");
+	if (msg_type == THINK)
+		printf("%lldms\t%d\t%s\n", time, philo->id, "is thinking");
+	if (msg_type == DIED)
+		printf("%lldms\t%d\t%s\n", time, philo->id, "died");
+	if (msg_type == DONE)
+		printf("%s\n", "done!");
+	if (msg_type != DIED && msg_type != DONE)
+		sem_post(philo->data->print_sem);
+}

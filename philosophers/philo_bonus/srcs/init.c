@@ -6,11 +6,11 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:37:08 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/24 22:48:01 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/24 22:56:00 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
 int	args_check(int argc, char **argv)
 {
@@ -32,30 +32,16 @@ int	args_check(int argc, char **argv)
 	return (0);
 }
 
-int	init_mutex(t_data *data)
+void	init_semaphore(t_data *data)
 {
-	int	i;
-
-	i = -1;
-	data->fork_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
-												* data->num_of_philo);
-	if (data->fork_mutex == NULL)
-		return (print_error(ERR_MALLOC));
-	data->moniter_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	if (data->moniter_mutex == NULL)
-		return (print_error(ERR_MALLOC));
-	data->print_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	if (data->print_mutex == NULL)
-		return (print_error(ERR_MALLOC));
-	data->stop_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	if (data->stop_mutex == NULL)
-		return (print_error(ERR_MALLOC));
-	while (++i < data->num_of_philo)
-		pthread_mutex_init(&data->fork_mutex[i], NULL);
-	pthread_mutex_init(data->moniter_mutex, NULL);
-	pthread_mutex_init(data->print_mutex, NULL);
-	pthread_mutex_init(data->stop_mutex, NULL);
-	return (0);
+	sem_unlink("fork");
+	sem_unlink("moniter");
+	sem_unlink("print");
+	sem_unlink("stop");
+	data->fork_sem = sem_open("fork", O_CREAT, 0600, 1);
+	data->moniter_sem = sem_open("moniter", O_CREAT, 0600, 1);
+	data->print_sem = sem_open("print", O_CREAT, 0600, 1);
+	data->stop_sem = sem_open("stop", O_CREAT, 0600, data->num_of_philo);
 }
 
 int	init_philo(t_data *data)
@@ -70,8 +56,6 @@ int	init_philo(t_data *data)
 	{
 		data->philo[i].data = data;
 		data->philo[i].id = i + 1;
-		data->philo[i].l_fork = i;
-		data->philo[i].r_fork = (i + 1) % data->num_of_philo;
 		data->philo[i].limit_time = 0;
 		data->philo[i].is_done = FALSE;
 	}
@@ -95,9 +79,10 @@ int	init_data(int argc, char **argv, t_data *data)
 	data->start_time = 0;
 	data->routine_count = 0;
 	data->max_count = data->num_of_must_eat * data->num_of_philo;
-	data->fork_mutex = NULL;
-	data->print_mutex = NULL;
-	data->stop_mutex = NULL;
+	data->fork_sem = NULL;
+	data->moniter_sem = NULL;
+	data->print_sem = NULL;
+	data->stop_sem = NULL;
 	data->philo = NULL;
 	return (0);
 }
@@ -110,8 +95,7 @@ int	init(int argc, char **argv, t_data *data)
 			return (1);
 		if (init_philo(data))
 			return (1);
-		if (init_mutex(data))
-			return (1);
+		init_semaphore(data);
 	}
 	else
 		return (print_error(ERR_ARGS));

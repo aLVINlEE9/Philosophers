@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:42:34 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/24 00:49:03 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/24 19:57:01 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include <limits.h>
 # include <pthread.h>
 # include <sys/time.h>
 
