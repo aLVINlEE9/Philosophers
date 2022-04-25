@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:37:08 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/24 22:56:00 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/04/25 16:44:09 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	init_semaphore(t_data *data)
 	sem_unlink("moniter");
 	sem_unlink("print");
 	sem_unlink("stop");
-	data->fork_sem = sem_open("fork", O_CREAT, 0600, 1);
+	data->fork_sem = sem_open("fork", O_CREAT, 0600, data->num_of_philo);
 	data->moniter_sem = sem_open("moniter", O_CREAT, 0600, 1);
 	data->print_sem = sem_open("print", O_CREAT, 0600, 1);
-	data->stop_sem = sem_open("stop", O_CREAT, 0600, data->num_of_philo);
+	data->stop_sem = sem_open("stop", O_CREAT, 0600, 1);
 }
 
 int	init_philo(t_data *data)
