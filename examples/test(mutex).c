@@ -14,13 +14,25 @@ void	*routine(void *data)
 
 	while (++i < 1000000)
 	{
-		pthread_mutex_lock(&mutex_1);
+		pthread_mutex_lock(&mutex_1); while(1)
 		usleep(1);
-		pthread_mutex_lock(&mutex_2);
 		mails++;
 		nmails++;
 		pthread_mutex_unlock(&mutex_1);
-		pthread_mutex_unlock(&mutex_2);
+	}
+}
+
+void	*routine(void *data)
+{
+	int i = -1;
+
+	while (++i < 1000000)
+	{
+		pthread_mutex_lock(&mutex_1); while (1)
+		usleep(1);
+		mails++;
+		nmails++;
+		pthread_mutex_unlock(&mutex_1);
 	}
 }
 
