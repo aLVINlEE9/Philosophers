@@ -8,19 +8,19 @@ int mails = 0;
 int nmails = 0;
 pthread_mutex_t mutex_1, mutex_2;
 
-void	*routine(void *data)
-{
-	int i = -1;
+// void	*routine(void *data)
+// {
+// 	int i = -1;
 
-	while (++i < 1000000)
-	{
-		pthread_mutex_lock(&mutex_1); while(1)
-		usleep(1);
-		mails++;
-		nmails++;
-		pthread_mutex_unlock(&mutex_1);
-	}
-}
+// 	while (++i < 1000000)
+// 	{
+// 		pthread_mutex_lock(&mutex_1); while(1)
+// 		usleep(1);
+// 		mails++;
+// 		nmails++;
+// 		pthread_mutex_unlock(&mutex_1);
+// 	}
+// }
 
 void	*routine(void *data)
 {

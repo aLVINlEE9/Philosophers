@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:33:47 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/24 23:14:33 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/09/28 17:40:23 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,21 @@
 
 void	philo_take_fork(t_philo *philo)
 {
-	sem_wait(philo->data->fork_sem);
-	print_message(philo, FORK);
-	sem_wait(philo->data->fork_sem);
-	print_message(philo, FORK);
+	if (philo->data->num_of_philo == 1)
+	{
+		sem_wait(philo->data->fork_sem);
+		print_message(philo, FORK);
+		while (!philo->is_done)
+			usleep(1000);
+		sem_post(philo->data->fork_sem);
+	}
+	else
+	{
+		sem_wait(philo->data->fork_sem);
+		print_message(philo, FORK);
+		sem_wait(philo->data->fork_sem);
+		print_message(philo, FORK);
+	}
 }
 
 void	philo_eat(t_philo *philo)

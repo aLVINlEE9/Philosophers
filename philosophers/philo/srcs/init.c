@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:37:08 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/24 22:48:01 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/09/28 17:16:00 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	init_data(int argc, char **argv, t_data *data)
 	if (args_check(argc, argv))
 		return (print_error(ERR_ARGS));
 	data->num_of_philo = ft_atou64(argv[1]);
-	if (data->num_of_philo < 2)
+	if (data->num_of_philo < 1)
 		return (print_error(ERR_ARGS));
 	data->time_to_die = ft_atou64(argv[2]);
 	data->time_to_eat = ft_atou64(argv[3]);

@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:33:47 by seungsle          #+#    #+#             */
-/*   Updated: 2022/04/24 01:34:10 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/09/28 17:14:35 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,27 @@
 
 void	philo_take_fork(t_philo *philo)
 {
-	if (philo->id % 2)
+	if (philo->data->num_of_philo == 1)
+	{
 		pthread_mutex_lock(philo->data->fork_mutex + philo->r_fork);
+		print_message(philo, FORK);
+		while (!philo->is_done)
+			usleep(1000);
+		pthread_mutex_unlock(philo->data->fork_mutex + philo->r_fork);
+	}
 	else
-		pthread_mutex_lock(philo->data->fork_mutex + philo->l_fork);
-	print_message(philo, FORK);
-	if (philo->id % 2)
-		pthread_mutex_lock(philo->data->fork_mutex + philo->l_fork);
-	else
-		pthread_mutex_lock(philo->data->fork_mutex + philo->r_fork);
-	print_message(philo, FORK);
+	{
+		if (philo->id % 2)
+			pthread_mutex_lock(philo->data->fork_mutex + philo->r_fork);
+		else
+			pthread_mutex_lock(philo->data->fork_mutex + philo->l_fork);
+		print_message(philo, FORK);
+		if (philo->id % 2)
+			pthread_mutex_lock(philo->data->fork_mutex + philo->l_fork);
+		else
+			pthread_mutex_lock(philo->data->fork_mutex + philo->r_fork);
+		print_message(philo, FORK);
+	}
 }
 
 void	philo_eat(t_philo *philo)

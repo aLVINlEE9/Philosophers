@@ -8,29 +8,38 @@ void	*routine(void *data)
 {
 	pid_t pid;
 	pthread_t tid;
-	int	*n;
+	pthread_mutex_t	*mutex;
 
+	mutex = (pthread_mutex_t *)data;
 	pid = getpid();
 	tid = pthread_self();
-	n = (int *)data;
-	*n *= 10;
 	printf("pid : %u, tid : %x\n", (unsigned int)pid, (unsigned int)tid);
 	printf("Finished thread execution\n");
-	printf("%p\n", n);
-	return ((void *)n);
+	sleep(5);
+	pthread_mutex_unlock(mutex);
 }
 
 int main()
 {
-	pthread_t	th;
+	pthread_t th[3];
+	pthread_mutex_t mutex;
+	int i = -1;
 	int	n = 10;
 	int *status;
 
-	if (pthread_create(&th, NULL, routine, (void *)&n))
-		perror("Failed to create thread ");
-	if (pthread_join(th, (void **)&status))
-		perror("Failed to join thread");
-	routine((void *)&n);
-	printf("%p\n", status);
-	printf("%d\n", *status);
+	pthread_mutex_lock(&mutex);
+	while (++n < 3)
+	{
+		if (pthread_create(&th[n], NULL, routine, (void *)&mutex))
+			perror("Failed to create thread ");
+		pthread_detach(th[i]);
+	}
+	n = -1;
+	while(++n < 3)
+	{
+		if (pthread_join(th[n], NULL))
+			perror("Failed to join thread");
+	}
+	// printf("%p\n", status);
+	// printf("%d\n", *status);
 }
