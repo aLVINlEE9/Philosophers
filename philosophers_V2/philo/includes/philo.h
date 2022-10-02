@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:59:21 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/02 19:22:12 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/02 19:47:17 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,30 @@
 
 typedef struct s_data
 {
-    int				num_of_philo;
+	int				num_of_philo;
 	uint64_t		time_to_die;
 	uint64_t		time_to_eat;
 	uint64_t		time_to_sleep;
 	int				num_of_must_eat;
-    pthread_mutex_t *main_lock;
-    pthread_mutex_t *forks;
-    struct s_philo  *philo;
-}   t_data;
+	int				is_dead;
+	uint64_t		start_time;
+	pthread_mutex_t *main_lock;
+	pthread_mutex_t *forks;
+	struct s_philo  *philo;
+}	t_data;
 
 typedef struct s_philo
 {
-    int             id;
-    pthread_mutex_t *l_fork;
-    pthread_mutex_t *r_fork;
-    pthread_mutex_t *philo_lock;
-    pthread_t       thread;
-    struct s_data   *data;
-}   t_philo;
+	int             id;
+	uint64_t		eat_time;
+	uint64_t		eat_count;
+	int				is_die;
+	pthread_mutex_t *l_fork;
+	pthread_mutex_t *r_fork;
+	pthread_mutex_t *philo_lock;
+	pthread_t       thread;
+	struct s_data   *data;
+}	t_philo;
 
 int free_util(t_data *data, int free_type, int idx);
 
@@ -58,6 +63,7 @@ int one_philo_case(t_data *data);
 
 int start_thread(t_data *data);
 
+uint64_t	get_time(void);
 uint64_t	ft_atou64(const char *str);
 
 #endif
