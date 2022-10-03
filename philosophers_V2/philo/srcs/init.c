@@ -6,31 +6,11 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:29:24 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/02 19:48:25 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/03 12:21:19 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-int	args_check(int argc, char **argv)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (i < argc)
-	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
 
 int	init_data(int argc, char **argv, t_data *data)
 {
@@ -41,6 +21,7 @@ int	init_data(int argc, char **argv, t_data *data)
 	data->time_to_eat = ft_atou64(argv[3]);
 	data->time_to_sleep = ft_atou64(argv[4]);
 	data->num_of_must_eat = -1;
+	data->is_dead = 1;
 	if (argc == 6)
 		data->num_of_must_eat = ft_atou64(argv[5]);
 	if (data->num_of_philo < 1)
@@ -74,21 +55,29 @@ int	init_forks(t_data *data)
 	return (0);
 }
 
-int	init_philo(t_data *data)
+int	create_philo(t_data *data)
 {
-	int				i;
-
-	i = -1;
 	data->philo = (t_philo *)malloc(sizeof(t_philo) * data->num_of_philo);
 	if (!data->philo)
 		return (print_error("malloc error") && \
 				free_util(data, FREE_PHILO, -1));
 	if (init_forks(data))
 		return (1);
+}
+
+int	init_philo(t_data *data)
+{
+	int				i;
+
+	i = -1;
+	if (create_philo(data))
+		return (1);
 	while (++i < data->num_of_philo)
 	{
 		data->philo[i].id = i;
-		data->philo[i].is_die = 1;
+		data->philo[i].eat_time = 0;
+		data->philo[i].eat_count = 0;
+		data->philo[i].is_done = 1;
 		data->philo[i].l_fork = &data->forks[(i + 1) % data->num_of_philo];
 		data->philo[i].r_fork = &data->forks[i];
 		data->philo[i].philo_lock = \

@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:59:21 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/02 19:47:17 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/03 12:36:11 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,45 @@ typedef struct s_data
 	int				num_of_must_eat;
 	int				is_dead;
 	uint64_t		start_time;
-	pthread_mutex_t *main_lock;
-	pthread_mutex_t *forks;
-	struct s_philo  *philo;
+	pthread_mutex_t	*main_lock;
+	pthread_mutex_t	*forks;
+	struct s_philo	*philo;
 }	t_data;
 
 typedef struct s_philo
 {
-	int             id;
+	int				id;
 	uint64_t		eat_time;
-	uint64_t		eat_count;
-	int				is_die;
-	pthread_mutex_t *l_fork;
-	pthread_mutex_t *r_fork;
-	pthread_mutex_t *philo_lock;
-	pthread_t       thread;
-	struct s_data   *data;
+	int				eat_count;
+	int				is_done;
+	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	*philo_lock;
+	pthread_t		thread;
+	struct s_data	*data;
 }	t_philo;
 
-int free_util(t_data *data, int free_type, int idx);
+int			free_util(t_data *data, int free_type, int idx);
 
-int	args_check(int argc, char **argv);
-int init(int argc, char **argv, t_data *data);
+int			args_check(int argc, char **argv);
+int			init(int argc, char **argv, t_data *data);
 
-int print_error(char *err_str);
+int			print_error(char *err_str);
 
-int one_philo_case(t_data *data);
+int			one_philo_case(t_data *data);
+void		think(t_philo *philo);
+void		sleep(t_philo *philo);
+void		put_down_forks(t_philo *philo);
+void		eat(t_philo *philo);
+void		take_forks(t_philo *philo);
 
-int start_thread(t_data *data);
+
+int			dead_check(t_philo *philo);
+void		*thread(void *philo_v);
+int			start_thread(t_data *data);
 
 uint64_t	get_time(void);
+int			args_check(int argc, char **argv);
 uint64_t	ft_atou64(const char *str);
 
 #endif

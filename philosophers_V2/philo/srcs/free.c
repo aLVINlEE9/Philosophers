@@ -6,11 +6,16 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 18:32:14 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/02 19:28:57 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/03 11:33:58 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+void	release_resources(t_data *data)
+{
+	
+}
 
 void	free_array_philo(t_philo *philo, int idx)
 {
