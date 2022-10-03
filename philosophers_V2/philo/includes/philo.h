@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:59:21 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/03 12:36:11 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/03 13:22:23 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define FREE_PHILO 32
 # define FREE_FORKS 33
 # define FREE_PHILO_LOCK 34
+# define RELEASE_RESOURCES 35
 
 typedef struct s_data
 {
