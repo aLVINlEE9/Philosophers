@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:59:13 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/03 11:55:45 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/03 13:44:52 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int	main(int argc, char **argv)
 	if (start_thread(&data))
 		return (1);
 	monitering(&data);
-	release_resources(&data);
+	free_util(&data, RELEASE_RESOURCES, data.num_of_philo);
 	return (0);
 }

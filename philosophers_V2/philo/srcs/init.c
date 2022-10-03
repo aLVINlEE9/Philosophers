@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:29:24 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/03 12:21:19 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/03 13:54:18 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	init_forks(t_data *data)
 		return (print_error("malloc error") && \
 				free_util(data, FREE_FORKS, -1));
 	while (++i < data->num_of_philo)
-		if (pthread_mutex_init(&forks[i], NULL))
+		if (pthread_mutex_init(&data->forks[i], NULL))
 			return (print_error("mutex init error") && \
-					free_util(data, FREE_FORKS, -1));
+					free_util(data, FREE_FORKS, i));
 	return (0);
 }
 
