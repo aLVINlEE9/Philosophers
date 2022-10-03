@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:28:46 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/03 12:38:38 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:14:13 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ int	start_thread(t_data *data)
 						(void *)&data->philo[i]))
 			return (print_error("create thread error"));
 	}
+	return (0);
 }

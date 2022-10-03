@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:59:21 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/03 13:22:23 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:46:36 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define DESTROY 20
 # define FREE 30
 # define FREE_MAIN_LOCK 31
 # define FREE_PHILO 32
 # define FREE_FORKS 33
 # define FREE_PHILO_LOCK 34
 # define RELEASE_RESOURCES 35
+# define ALL 40
 
 typedef struct s_data
 {
@@ -53,7 +55,7 @@ typedef struct s_philo
 	struct s_data	*data;
 }	t_philo;
 
-int			free_util(t_data *data, int free_type, int idx);
+int			free_util(t_data *data, int free_type, int df_type, int idx);
 
 int			args_check(int argc, char **argv);
 int			init(int argc, char **argv, t_data *data);

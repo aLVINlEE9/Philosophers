@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:29:24 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/03 13:54:18 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:47:50 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int	init_data(int argc, char **argv, t_data *data)
 	data->main_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!data->main_lock)
 		return (print_error("malloc error") && \
-				free_util(data, FREE_MAIN_LOCK, -1));
+				free_util(data, FREE_MAIN_LOCK, FREE, -1));
 	if (pthread_mutex_init(data->main_lock, NULL))
 		return (print_error("mutex init error") && \
-				free_util(data, FREE_MAIN_LOCK, -1));
+				free_util(data, FREE_MAIN_LOCK, DESTROY, -1));
 }
 
 int	init_forks(t_data *data)
@@ -47,11 +47,11 @@ int	init_forks(t_data *data)
 					* data->num_of_philo);
 	if (!data->forks)
 		return (print_error("malloc error") && \
-				free_util(data, FREE_FORKS, -1));
+				free_util(data, FREE_FORKS, FREE, -1));
 	while (++i < data->num_of_philo)
 		if (pthread_mutex_init(&data->forks[i], NULL))
 			return (print_error("mutex init error") && \
-					free_util(data, FREE_FORKS, i));
+					free_util(data, FREE_FORKS, DESTROY, i));
 	return (0);
 }
 
@@ -60,7 +60,7 @@ int	create_philo(t_data *data)
 	data->philo = (t_philo *)malloc(sizeof(t_philo) * data->num_of_philo);
 	if (!data->philo)
 		return (print_error("malloc error") && \
-				free_util(data, FREE_PHILO, -1));
+				free_util(data, FREE_PHILO, FREE, -1));
 	if (init_forks(data))
 		return (1);
 }
@@ -84,10 +84,10 @@ int	init_philo(t_data *data)
 				(pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 		if (!data->philo[i].philo_lock)
 			return (print_error("malloc error") && \
-					free_util(data, FREE_PHILO_LOCK, i));
+					free_util(data, FREE_PHILO_LOCK, FREE, i));
 		if (pthread_mutex_init(data->philo[i].philo_lock, NULL))
 			return (print_error("mutex error") && \
-					free_util(data, FREE_PHILO_LOCK, i));
+					free_util(data, FREE_PHILO_LOCK, DESTROY, i));
 		data->philo[i].data = data;
 	}
 	return (0);
