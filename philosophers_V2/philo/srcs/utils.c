@@ -6,11 +6,19 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:36:45 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/04 16:53:11 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/04 19:24:48 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+int	one_philo_case(uint64_t time)
+{
+	printf("%d %d has taken a fork\n", 0, 1);
+	usleep(time * 1000);
+	printf("%lld %d died\n", time, 1);
+	return (1);
+}
 
 uint64_t	get_time(void)
 {

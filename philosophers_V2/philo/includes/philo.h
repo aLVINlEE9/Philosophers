@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:59:21 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/04 16:53:27 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/04 19:22:24 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int			print_error(char *err_str);
 void		eat_moniter(t_data *data, int cnt);
 void		dead_moniter(t_philo *philo);
 void		monitering(t_data *data);
-
 
 int			one_philo_case(uint64_t time);
 void		philo_think(t_philo *philo);
