@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:28:46 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/03 15:14:13 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:44:02 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@ void	*thread(void *philo_v)
 	while (dead_check(philo))
 	{
 		take_forks(philo);
-		eat(philo);
+		philo_eat(philo);
 		put_down_forks(philo);
 		philo->eat_count++;
 		if (eat_check(philo))
 			break ;
-		sleep(philo);
+		philo_sleep(philo);
+		philo_think(philo);
 	}
 	return (NULL);
 }

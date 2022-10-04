@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:59:21 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/03 16:46:36 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:53:27 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_philo
 {
 	int				id;
 	uint64_t		eat_time;
+	uint64_t		sleep_time;
 	int				eat_count;
 	int				is_done;
 	pthread_mutex_t	*l_fork;
@@ -54,21 +55,33 @@ typedef struct s_philo
 	pthread_t		thread;
 	struct s_data	*data;
 }	t_philo;
+int			join_array_philo(t_data *data);
+int			free_array_philo(t_data *data, int idx, int df_type);
+int			free_array_fork(t_data *data, int idx, int df_type);
 
 int			free_util(t_data *data, int free_type, int df_type, int idx);
 
-int			args_check(int argc, char **argv);
+int			init_data(int argc, char **argv, t_data *data);
+int			init_forks(t_data *data);
+int			create_philo(t_data *data);
+int			init_philo(t_data *data);
 int			init(int argc, char **argv, t_data *data);
 
 int			print_error(char *err_str);
 
-int			one_philo_case(t_data *data);
-void		think(t_philo *philo);
-void		sleep(t_philo *philo);
+void		eat_moniter(t_data *data, int cnt);
+void		dead_moniter(t_philo *philo);
+void		monitering(t_data *data);
+
+
+int			one_philo_case(uint64_t time);
+void		philo_think(t_philo *philo);
+void		philo_sleep(t_philo *philo);
 void		put_down_forks(t_philo *philo);
-void		eat(t_philo *philo);
+void		philo_eat(t_philo *philo);
 void		take_forks(t_philo *philo);
 
+int			eat_check(t_philo *philo);
 
 int			dead_check(t_philo *philo);
 void		*thread(void *philo_v);

@@ -6,37 +6,41 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:46:19 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/03 12:36:03 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:53:07 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	one_philo_case(t_data *data)
+int	one_philo_case(uint64_t time)
 {
-	
+	printf("%d %d has taken a fork\n", 0, 1);
+	usleep(time * 1000);
+	printf("%lld %d died\n", time, 1);
 	return (1);
 }
 
-void	think(t_philo *philo)
+void	philo_think(t_philo *philo)
 {
 	if (dead_check(philo))
 	{
 		printf("%lldms\t%d\t%s\n", get_time() - philo->data->start_time, \
 				philo->id, "is thinking");
+		if (philo->data->num_of_must_eat % 2)
+			while (get_time() - philo->sleep_time <= \
+					(uint64_t)philo->data->num_of_must_eat * 2)
+				usleep(100);
 	}
 }
 
-void	sleep(t_philo *philo)
-{
-	u_int64_t	sleep_start;
-	
+void	philo_sleep(t_philo *philo)
+{	
 	if (dead_check(philo))
 	{
-		sleep_start = get_time();
+		philo->sleep_time = get_time();
 		printf("%lldms\t%d\t%s\n", get_time() - philo->data->start_time, \
 				philo->id, "is sleeping");
-		while (get_time() - sleep_start >= philo->data->time_to_sleep)
+		while (get_time() - philo->sleep_time >= philo->data->time_to_sleep)
 			usleep(100);
 	}
 }
@@ -47,7 +51,7 @@ void	put_down_forks(t_philo *philo)
 	pthread_mutex_unlock(philo->r_fork);
 }
 
-void	eat(t_philo *philo)
+void	philo_eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->philo_lock);
 	philo->eat_time = get_time();

@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:29:24 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/03 15:47:50 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:55:06 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	init_data(int argc, char **argv, t_data *data)
 	if (data->num_of_philo < 1)
 		return (print_error("bad arguments"));
 	if (data->num_of_philo == 1)
-		return (one_philo_case(data));
+		return (one_philo_case(data->time_to_die));
 	data->main_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!data->main_lock)
 		return (print_error("malloc error") && \
@@ -35,12 +35,12 @@ int	init_data(int argc, char **argv, t_data *data)
 	if (pthread_mutex_init(data->main_lock, NULL))
 		return (print_error("mutex init error") && \
 				free_util(data, FREE_MAIN_LOCK, DESTROY, -1));
+	return (0);
 }
 
 int	init_forks(t_data *data)
 {
 	int				i;
-	pthread_mutex_t	*forks;
 
 	i = -1;
 	data->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
@@ -63,6 +63,7 @@ int	create_philo(t_data *data)
 				free_util(data, FREE_PHILO, FREE, -1));
 	if (init_forks(data))
 		return (1);
+	return (0);
 }
 
 int	init_philo(t_data *data)
@@ -76,6 +77,7 @@ int	init_philo(t_data *data)
 	{
 		data->philo[i].id = i;
 		data->philo[i].eat_time = 0;
+		data->philo[i].sleep_time = 0;
 		data->philo[i].eat_count = 0;
 		data->philo[i].is_done = 1;
 		data->philo[i].l_fork = &data->forks[(i + 1) % data->num_of_philo];
@@ -95,7 +97,7 @@ int	init_philo(t_data *data)
 
 int	init(int argc, char **argv, t_data *data)
 {
-	if (argc == 5 || argv == 6)
+	if (argc == 5 || argc == 6)
 	{
 		if (init_data(argc, argv, data))
 			return (1);
