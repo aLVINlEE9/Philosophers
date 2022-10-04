@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:28:46 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/04 16:44:02 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/04 19:20:39 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int	start_thread(t_data *data)
 	data->start_time = get_time();
 	while (++i < data->num_of_philo)
 	{
-		if (pthread_create(&data->philo->thread, NULL, thread, \
+		data->philo[i].eat_time = get_time();
+		if (pthread_create(&data->philo[i].thread, NULL, thread, \
 						(void *)&data->philo[i]))
 			return (print_error("create thread error"));
 	}

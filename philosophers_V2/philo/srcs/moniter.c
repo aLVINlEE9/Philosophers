@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 11:33:14 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/03 13:04:58 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/04 19:19:42 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	dead_moniter(t_philo *philo)
 		if (get_time() - philo->eat_time >= philo->data->time_to_die)
 		{
 			pthread_mutex_lock(philo->data->main_lock);
-			printf("%lldms\t%d\t%s\n", get_time() - philo->data->start_time, \
+			printf("%lld %d %s\n", get_time() - philo->data->start_time, \
 					philo->id, "died");
 			philo->data->is_dead = 0;
 			pthread_mutex_unlock(philo->data->main_lock);
@@ -46,15 +46,16 @@ void	monitering(t_data *data)
 
 	while (data->is_dead)
 	{
-		i = -1;
+		i = 0;
 		cnt = 0;
-		while (++i < data->num_of_philo && data->is_dead)
+		while (i < data->num_of_philo && data->is_dead)
 		{
 			dead_moniter(&data->philo[i]);
 			pthread_mutex_lock(data->philo[i].philo_lock);
 			if (data->philo[i].is_done == 0)
 				cnt++;
 			pthread_mutex_unlock(data->philo[i].philo_lock);
+			i++;
 		}
 		eat_moniter(data, cnt);
 	}
