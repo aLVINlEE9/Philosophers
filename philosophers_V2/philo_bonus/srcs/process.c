@@ -6,20 +6,11 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:01:42 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/05 15:03:50 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/05 15:25:27 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-
-int	eat_check(t_philo *philo)
-{
-	if (philo->data->num_of_must_eat != -1 && philo->eat_count == \
-		philo->data->num_of_must_eat)
-		return (1);
-	else
-		return (0);
-}
 
 int	dead_check(t_philo *philo)
 {
@@ -29,29 +20,9 @@ int	dead_check(t_philo *philo)
 		return (1);
 }
 
-void	*moniter(void *philo_v)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)philo_v;
-	sem_wait(philo->philo_lock);
-	if (philo->is_done)
-	{
-		if (get_time() - philo->eat_time >= philo->data->time_to_die)
-		{
-			sem_wait(philo->data->print);
-			printf("%lld %d %s\n", get_time() - philo->data->start_time, \
-					philo->id, "died");
-			philo->data->is_dead = 0;
-			sem_post(philo->data->print);
-		}
-	}
-	sem_post(philo->philo_lock);
-}
-
 void	process(t_philo *philo)
 {
-	if (pthread_create(&philo->moniter, NULL, moniter, (void *)&philo))
+	if (pthread_create(&philo->moniter, NULL, monitering, (void *)&philo))
 		return (print_error("create thread error"));
 	if (philo->id % 2)
 		usleep(800);
@@ -61,11 +32,12 @@ void	process(t_philo *philo)
 		philo_eat(philo);
 		put_down_forks(philo);
 		philo->eat_count++;
-		if (eat_check(philo))
+		if (dead_check(philo))
 			break ;
 		philo_sleep(philo);
 		philo_think(philo);
 	}
+	pthread_join(philo->moniter, NULL);
 }
 
 int	start_process(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 20:18:32 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/05 14:36:23 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/05 15:33:34 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int init_philo(t_data *data)
 	while (++i < data->num_of_philo)
 	{
 		data->philo[i].id = i;
+		data->philo[i].sleep_time = 0;
 		data->philo[i].eat_time = 0;
 		data->philo[i].eat_count = 0;
 		data->philo[i].is_done = 1;

@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:26:25 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/05 14:33:19 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/05 15:33:25 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_philo
 {
 	int				id;
 	pid_t			pid;
+	uint64_t		sleep_time;
 	uint64_t		eat_time;
 	int				eat_count;
 	int				is_done;

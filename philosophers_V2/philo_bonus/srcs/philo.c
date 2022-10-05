@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 15:03:57 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/05 15:04:26 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/05 15:31:02 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,21 @@ void	philo_sleep(t_philo *philo)
 
 void	put_down_forks(t_philo *philo)
 {
-	pthread_mutex_unlock(philo->l_fork);
-	pthread_mutex_unlock(philo->r_fork);
+	sem_post(philo->data->fork);
+	sem_post(philo->data->fork);
 }
 
 void	philo_eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->philo_lock);
+	sem_wait(philo->philo_lock);
 	philo->eat_time = get_time();
-	pthread_mutex_unlock(philo->philo_lock);
+	sem_post(philo->philo_lock);
 	if (dead_check(philo))
 	{
+		sem_wait(philo->data->print);
 		printf("%lld %d %s\n", get_time() - philo->data->start_time, \
 				philo->id, "is eating");
+		sem_post(philo->data->print);
 		while (get_time() - philo->eat_time <= philo->data->time_to_eat && \
 				dead_check(philo))
 			usleep(100);
@@ -62,19 +64,23 @@ void	philo_eat(t_philo *philo)
 
 void	take_forks(t_philo *philo)
 {
-	pthread_mutex_lock(philo->l_fork);
+	sem_wait(philo->data->fork);
 	if (dead_check(philo))
 	{
+		sem_wait(philo->data->print);
 		printf("%lld %d %s\n", get_time() - philo->data->start_time, \
 				philo->id, "has taken a fork");
+		sem_post(philo->data->print);
 	}
 	else
 		return ;
-	pthread_mutex_lock(philo->r_fork);
+	sem_wait(philo->data->fork);
 	if (dead_check(philo))
 	{
+		sem_wait(philo->data->print);
 		printf("%lld %d %s\n", get_time() - philo->data->start_time, \
 				philo->id, "has taken a fork");
+		sem_post(philo->data->print);
 	}
 	else
 		return ;
