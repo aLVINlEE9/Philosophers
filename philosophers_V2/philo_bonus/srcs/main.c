@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 20:18:49 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/04 20:18:50 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/05 13:01:36 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 
 	if (init(argc, argv, &data))
 		return (1);
-	if (start_thread(&data))
+	if (start_process(&data))
 		return (1);
 	return (0);
 }

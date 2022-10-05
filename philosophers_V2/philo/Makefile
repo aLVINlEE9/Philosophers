@@ -6,12 +6,12 @@
 #    By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/21 20:00:26 by seungsle          #+#    #+#              #
-#    Updated: 2022/10/04 16:54:34 by seungsle         ###   ########.fr        #
+#    Updated: 2022/10/05 14:44:40 by seungsle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo
-CC		= cc -g
+CC		= cc -fsanitize=thread -g
 CFLAG	= -Werror -Wall -Wextra
 SRCS 	=	srcs/free.c		\
 			srcs/init.c		\

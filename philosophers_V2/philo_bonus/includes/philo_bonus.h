@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:26:25 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/04 20:18:14 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/05 14:33:19 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,40 @@ typedef struct s_data
 	uint64_t		time_to_sleep;
 	int				num_of_must_eat;
 	uint64_t		start_time;
-	pid_t			*pid;
-	int				all_eat;
-	sem_t			*table;
+	int				is_dead;
 	sem_t			*fork;
-	sem_t			*start;
 	sem_t			*print;
+	sem_t			*main_lock;
 	struct s_philo	*philo;
 }   t_data;
 
 typedef struct s_philo
 {
-	int			id;
-	int			eat_count;
-	uint64_t	last_eat_time;
-	pthread_t	die_check;
-	sem_t		*check_sem;
+	int				id;
+	pid_t			pid;
+	uint64_t		eat_time;
+	int				eat_count;
+	int				is_done;
+	uint64_t		last_eat_time;
+	pthread_t		moniter;
+	sem_t			*philo_lock;
+	char			*sem_name;
+	struct s_data	*data;
 }	t_philo;
+
+int			print_error(char *err_str);
+
+int			start_process(t_data *data);
+
+int			ft_cnt(long long n);
+char		*ft_put(char *str, long long n, int len);
+char		*ft_itoa(int n);
+int			ft_strlen(char *str);
+char		*ft_strjoin(char *s1, char *s2);
+
+int			one_philo_case(uint64_t time);
+uint64_t	get_time(void);
+int			args_check(int argc, char **argv);
+uint64_t	ft_atou64(const char *str);
 
 #endif
