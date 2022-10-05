@@ -6,11 +6,11 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:36:45 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/05 14:26:13 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/05 15:56:52 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
 int	one_philo_case(uint64_t time)
 {

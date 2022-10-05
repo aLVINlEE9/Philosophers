@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 15:03:57 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/05 15:31:02 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/05 15:43:13 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ void	philo_think(t_philo *philo)
 {
 	if (dead_check(philo))
 	{
+		sem_wait(philo->data->print);
 		printf("%lld %d %s\n", get_time() - philo->data->start_time, \
 				philo->id, "is thinking");
+		sem_post(philo->data->print);
 		if (philo->data->num_of_philo % 2)
 			while (get_time() - philo->sleep_time <= \
 					(uint64_t)philo->data->num_of_philo * 2 && \
@@ -30,9 +32,13 @@ void	philo_sleep(t_philo *philo)
 {	
 	if (dead_check(philo))
 	{
+		sem_wait(philo->philo_lock);
 		philo->sleep_time = get_time();
+		sem_post(philo->philo_lock);
+		sem_wait(philo->data->print);
 		printf("%lld %d %s\n", get_time() - philo->data->start_time, \
 				philo->id, "is sleeping");
+		sem_post(philo->data->print);
 		while (get_time() - philo->sleep_time <= philo->data->time_to_sleep && \
 				dead_check(philo))
 			usleep(100);

@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:01:42 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/05 15:25:27 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/05 15:56:42 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	dead_check(t_philo *philo)
 void	process(t_philo *philo)
 {
 	if (pthread_create(&philo->moniter, NULL, monitering, (void *)&philo))
-		return (print_error("create thread error"));
+	{
+		print_error("create thread error");
+		exit(0);
+	}
 	if (philo->id % 2)
 		usleep(800);
 	while (dead_check(philo))
@@ -38,6 +41,30 @@ void	process(t_philo *philo)
 		philo_think(philo);
 	}
 	pthread_join(philo->moniter, NULL);
+	sem_close(philo->philo_lock);
+	if (dead_check(philo))
+		exit(1);
+	exit(0);
+}
+
+int end_process(t_data *data)
+{
+	int	i;
+	int	status;
+
+	i = -1;
+	while (++i < data->num_of_philo)
+	{
+		waitpid(-1, &status, 0);
+		if (status != 0)
+		{
+			i = -1;
+			while (++i < data->num_of_philo)
+				kill(data->philo[i].pid, SIGTERM);
+			break ;
+		}
+	}
+	return (0);
 }
 
 int	start_process(t_data *data)

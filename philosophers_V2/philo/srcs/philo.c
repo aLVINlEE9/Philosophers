@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:46:19 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/04 19:24:39 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/05 15:59:04 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void	philo_sleep(t_philo *philo)
 {	
 	if (dead_check(philo))
 	{
+		pthread_mutex_lock(philo->philo_lock);
 		philo->sleep_time = get_time();
+		pthread_mutex_unlock(philo->philo_lock);
 		printf("%lld %d %s\n", get_time() - philo->data->start_time, \
 				philo->id, "is sleeping");
 		while (get_time() - philo->sleep_time <= philo->data->time_to_sleep && \

@@ -6,19 +6,19 @@
 #    By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/21 20:00:26 by seungsle          #+#    #+#              #
-#    Updated: 2022/10/04 19:29:05 by seungsle         ###   ########.fr        #
+#    Updated: 2022/10/05 15:54:40 by seungsle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo_bonus
 CC		= cc -g
 CFLAG	= -Werror -Wall -Wextra
-SRCS 	=	srcs/free.c		\
-			srcs/init.c		\
+SRCS 	=	srcs/init.c		\
 			srcs/main.c		\
-			srcs/moniter.c	\
-			srcs/philo.c 	\
-			srcs/thread.c 	\
+			srcs/moniter.c		\
+			srcs/philo.c	\
+			srcs/process.c 	\
+			srcs/utils_string.c 	\
 			srcs/utils.c
 
 OBJS 	= ${SRCS:.c=.o}

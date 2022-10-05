@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 20:18:32 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/05 15:33:34 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/05 15:55:21 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int init_sem(t_data *data)
 		data->philo[i].philo_lock = sem_open(data->philo[i].sem_name, \
 										O_CREAT, 0644, data->num_of_philo);
 	}
+	return (0);
 }
 
 int	init_data(int argc, char **argv, t_data *data)
@@ -71,6 +72,7 @@ int init_philo(t_data *data)
 		data->philo[i].sem_name = ft_strjoin("philo_lock_", ft_itoa(i));
 		data->philo[i].data = data;
 	}
+	return (0);
 }
 
 int	init(int argc, char **argv, t_data *data)

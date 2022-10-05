@@ -6,7 +6,7 @@
 /*   By: seungsle <seungsle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:26:25 by seungsle          #+#    #+#             */
-/*   Updated: 2022/10/05 15:33:25 by seungsle         ###   ########.fr       */
+/*   Updated: 2022/10/05 15:55:37 by seungsle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,26 @@ typedef struct s_philo
 	struct s_data	*data;
 }	t_philo;
 
+int 		init_sem(t_data *data);
+int			init_data(int argc, char **argv, t_data *data);
+int 		init_philo(t_data *data);
+int			init(int argc, char **argv, t_data *data);
+
 int			print_error(char *err_str);
 
+int			eat_moniter(t_philo *philo);
+int			dead_moniter(t_philo *philo);
+void		*monitering(void *philo_v);
+
+void		philo_think(t_philo *philo);
+void		philo_sleep(t_philo *philo);
+void		put_down_forks(t_philo *philo);
+void		philo_eat(t_philo *philo);
+void		take_forks(t_philo *philo);
+
+int			dead_check(t_philo *philo);
+void		process(t_philo *philo);
+int 		end_process(t_data *data);
 int			start_process(t_data *data);
 
 int			ft_cnt(long long n);
